@@ -1,4 +1,9 @@
-import { getListings, getListingById, getListingsByPropertyType } from "../services/listingsService.js";
+import { 
+    getListings, 
+    getListingById, 
+    getListingsByPropertyType,
+    getAllListingsWithTotalPrice 
+} from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
     try {
@@ -53,5 +58,21 @@ export const getListingsByType = async (req, res) => {
     } catch (error) {
         console.log("Error en la solicitud de listings", error);
         res.status(500).json({msg: "Internal server error"})
+    }
+}
+
+export const getAllListingsWithTotalPrice = async (req, res) => {
+    try {
+        console.log("Obteniendo propiedades con precio total");
+        const listings = await getAllListingsWithTotalPrice()
+
+        res.json({
+            msg: "Propiedades obtenidas exitosamente",
+            count: listings.length,
+            results: listings
+        })
+    } catch (error) {
+        console.log("Error obteniendo las propiedades con precio total: ", error)
+        res.status(500).json({msg: "Internal Server Error"})   
     }
 }

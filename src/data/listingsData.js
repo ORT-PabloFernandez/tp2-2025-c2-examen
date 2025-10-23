@@ -32,3 +32,15 @@ export async function findListingsByPropertyType(propertyType){
 
     return listings
 }
+
+export async function findAllListingsWithTotalPrice(){
+    const db = getDb();
+    const listings = await db.collection("listingsAndReviews")
+        .find()
+        .toArray()
+
+        const listingsWithTotalPrice = listings.map(listing => {
+            const price = listing.price?.$numberDecimal ? parseFloat(listing.price.$numberDecimal) :(listing.price || 0);
+            const cleaningFee = listing.cleaning_fee?.$numberDecimal ? parseFloat(listing.cleaning_fee.$numberDecimal) :(listing.cleaning_fee || 0);
+        })
+}

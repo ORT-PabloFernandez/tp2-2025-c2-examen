@@ -1,4 +1,9 @@
-import { findAllListings, findListingById, findListingsByPropertyType } from "../data/listingsData.js";
+import { 
+    findAllListings, 
+    findListingById, 
+    findListingsByPropertyType, 
+    findAllListingsWithTotalPrice 
+} from "../data/listingsData.js";
 
 export const getListings = async (page, pageSize) => {
     return await findAllListings(page, pageSize);
@@ -10,4 +15,8 @@ export const getListingById = async (id) => {
 
 export const getListingsByPropertyType = async (propertyType) => {
     return await findListingsByPropertyType(propertyType)
+}
+
+export const getAllListingsWithTotalPrice = async () => {
+    return await findAllListingsWithTotalPrice();
 }
