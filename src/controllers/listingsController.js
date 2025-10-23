@@ -66,10 +66,24 @@ export const getAllListingsWithTotalPrice = async (req, res) => {
         console.log("Obteniendo propiedades con precio total");
         const listings = await getListingsWithTotalPrice()
 
+        const listingsWithTotalPrice = listings.map(listing => {
+            const price = listing.price?.$numberDecimal ? parseFloat(listing.price.$numberDecimal) :(listing.price || 0);
+            const cleaningFee = listing.cleaning_fee?.$numberDecimal ? parseFloat(listing.cleaning_fee.$numberDecimal) :(listing.cleaning_fee || 0);
+            const securityDeposit = listing.security_deposit?.$numberDecimal ? parseFloat(listing.security_deposit.$numberDecimal) :(listing.security_deposit || 0);
+            const extraPeople = listing.extra_people?.$numberDecimal ? parseFloat(listing.extra_people.$numberDecimal) :(listing.extra_people || 0);
+
+            const totalPrice = Number(price) + Number(cleaningFee) + Number(securityDeposit) + Number(extraPeople);
+
+            return {
+                ...listing,
+                totalPrice: totalPrice.toFixed(2)
+            };
+        });
+
         res.json({
             msg: "Propiedades obtenidas exitosamente",
             count: listings.length,
-            results: listings
+            results: listingsWithTotalPrice
         })
     } catch (error) {
         console.log("Error obteniendo las propiedades con precio total: ", error)

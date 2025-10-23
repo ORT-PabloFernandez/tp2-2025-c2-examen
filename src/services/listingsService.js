@@ -2,7 +2,7 @@ import {
     findAllListings, 
     findListingById, 
     findListingsByPropertyType, 
-    findAllListingsWithTotalPrice 
+    findAllListingsForPriceCalculation 
 } from "../data/listingsData.js";
 
 export const getListings = async (page, pageSize) => {
@@ -18,5 +18,5 @@ export const getListingsByPropertyType = async (propertyType) => {
 }
 
 export const getListingsWithTotalPrice = async () => {
-    return await findAllListingsWithTotalPrice();
+    return await findAllListingsForPriceCalculation();
 }
