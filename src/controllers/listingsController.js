@@ -1,4 +1,4 @@
-import { getListings, getListingById } from "../services/listingsService.js";
+import { getListings, getListingById, getListingsByPropertyType } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
     try {
@@ -24,3 +24,34 @@ export const getListingId = async (req, res) => {
     }
 };
 
+export const getListingsByType = async (req, res) => {
+    try {
+        const {type} = req.params
+
+        if (!type) {
+            return res.status(400).json({
+                msg: "Se requiere el tipo de propiedad en el request"
+            })
+        }
+
+        const listings = await getListingsByPropertyType(type);
+
+        if (listings.length === 0) {
+            return res.status(404).json({
+                msg:`No se encontraron propiedades para el tipo ${type}`,
+                count: 0,
+                results: []
+            })
+        }
+
+        res.json({
+            msg: "Propiedades obtenidas exitosamente",
+            count: listings.length,
+            propertyType: type,
+            results: listings
+        })
+    } catch (error) {
+        console.log("Error en la solicitud de listings", error);
+        res.status(500).json({msg: "Internal server error"})
+    }
+}

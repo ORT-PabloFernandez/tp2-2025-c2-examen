@@ -23,3 +23,12 @@ export async function findListingById(id) {
     console.log(listing);
     return listing;
 }
+
+export async function findListingsByPropertyType(propertyType){
+    const db = getDb();
+    const listings = await db.collection("listingsAndReviews")
+        .find({property_type: propertyType})
+        .toArray()
+
+    return listings
+}
