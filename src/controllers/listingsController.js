@@ -2,7 +2,7 @@ import {
     getListings, 
     getListingById, 
     getListingsByPropertyType,
-    getAllListingsWithTotalPrice 
+    getListingsWithTotalPrice 
 } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
@@ -64,7 +64,7 @@ export const getListingsByType = async (req, res) => {
 export const getAllListingsWithTotalPrice = async (req, res) => {
     try {
         console.log("Obteniendo propiedades con precio total");
-        const listings = await getAllListingsWithTotalPrice()
+        const listings = await getListingsWithTotalPrice()
 
         res.json({
             msg: "Propiedades obtenidas exitosamente",

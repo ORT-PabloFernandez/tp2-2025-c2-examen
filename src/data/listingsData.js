@@ -28,6 +28,13 @@ export async function findListingsByPropertyType(propertyType){
     const db = getDb();
     const listings = await db.collection("listingsAndReviews")
         .find({property_type: propertyType})
+        .project({
+            _id: 1,
+            name: 1,
+            summary: 1,
+            property_type: 1,
+            price: 1
+        })
         .toArray()
 
     return listings
@@ -42,5 +49,14 @@ export async function findAllListingsWithTotalPrice(){
         const listingsWithTotalPrice = listings.map(listing => {
             const price = listing.price?.$numberDecimal ? parseFloat(listing.price.$numberDecimal) :(listing.price || 0);
             const cleaningFee = listing.cleaning_fee?.$numberDecimal ? parseFloat(listing.cleaning_fee.$numberDecimal) :(listing.cleaning_fee || 0);
+            const securityDeposit = listing.security_deposit?.$numberDecimal ? parseFloat(listing.security_deposit.$numberDecimal) :(listing.security_deposit || 0);
+            const extraPeople = listing.extra_people?.$numberDecimal ? parseFloat(listing.extra_people.$numberDecimal) :(listing.extra_people || 0);
+
+            const totalPrice = price + cleaningFee + securityDeposit + extraPeople;
+
+            return{
+                ...listing,
+                totalPrice: totalPrice
+            };
         })
 }

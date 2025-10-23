@@ -17,6 +17,6 @@ export const getListingsByPropertyType = async (propertyType) => {
     return await findListingsByPropertyType(propertyType)
 }
 
-export const getAllListingsWithTotalPrice = async () => {
+export const getListingsWithTotalPrice = async () => {
     return await findAllListingsWithTotalPrice();
 }
