@@ -23,3 +23,16 @@ export async function findListingById(id) {
     console.log(listing);
     return listing;
 }
+
+//REVISAR
+export async function findListingByPropertyType(type) {
+    const db = getDb();
+        const listings = await db.collection("listingsAndReviews").find({ property_type:type }).toArray();
+        return listings;
+}
+
+export async function findListingByHost(host) {
+    const db = getDb();
+        const listings = await db.collection("listingsAndReviews").find({ "host.host_id":host }).toArray();
+        return listings;
+}
