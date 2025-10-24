@@ -64,6 +64,18 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 ### Endpoints de listings/propiedades:
 - GET /api/listings?pageSize=[pageSize]&page=[page] - Obtener todas las propiedades con paginación opcional (requiere autenticación)
 - GET /api/listings/:id - Obtener una propiedad específica por ID (requiere autenticación)
+- GET /api/listings/property-type/:type?pageSize=[pageSize]&page=[page] (requiere autenticación)
+- GET /api/listings/with-total-price?pageSize=[pageSize]&page=[page] (requiere autenticación)
+- GET /api/listings/host/:host_id?pageSize=[pageSize]&page=[page] (requiere autenticación)
+- PATCH /api/listings/:id/availability (requiere autenticación) 
+    - Body: {
+        "availability_30": 1,
+        "availability_60": 2,
+        "availability_90": 3,
+        "availability_365": 4
+    }
+- GET /api/listings/top-hosts?limit=[limit] (requiere autenticación)
+- GET /api/listings/:id
 
 ### Endpoint base:
 - GET / - Mensaje de bienvenida de la API
