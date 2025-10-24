@@ -64,10 +64,10 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 ### Endpoints de listings/propiedades:
 - GET /api/listings?pageSize=[pageSize]&page=[page] - Obtener todas las propiedades con paginación opcional (requiere autenticación)
 - GET /api/listings/:id - Obtener una propiedad específica por ID (requiere autenticación)
-- GET /api/listings/with-total-price?pageSize=[pageSize]&page=[page] - Obtener las propiedades con paginación opcional y un campo de "total" que suma los precios
-- GET /api/listings/host/:host_id - Obtener todas las propiedades asociadas al host mandado por parametro
-- GET api/property-type/:type - Obtener todas las propiedades que matchean con el tipo de propiedad pasado por parametro
-- PUT api/:id/availability - Modificar los datos de availability de la propiedad enviandolos por body
+- GET /api/listings/with-total-price?pageSize=[pageSize]&page=[page] - Obtener las propiedades con paginación opcional y un campo de "total" que suma los precios (requiere autenticación)
+- GET /api/listings/host/:host_id - Obtener todas las propiedades asociadas al host mandado por parametro (requiere autenticación)
+- GET api/property-type/:type - Obtener todas las propiedades que matchean con el tipo de propiedad pasado por parametro (requiere autenticación)
+- PUT api/:id/availability - Modificar los datos de availability de la propiedad enviandolos por body (requiere autenticación)
 
 ### Endpoint base:
 - GET / - Mensaje de bienvenida de la API
