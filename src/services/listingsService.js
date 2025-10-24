@@ -1,9 +1,11 @@
+import { getListingId } from "../controllers/listingsController.js";
 import { 
     findAllListings, 
     findListingById, 
     findListingsByPropertyType, 
     findAllListingsForPriceCalculation, 
-    findListingsByHostId
+    findListingsByHostId,
+    updateListingAvailability
 } from "../data/listingsData.js";
 
 export const getListings = async (page, pageSize) => {
@@ -24,4 +26,8 @@ export const getListingsWithTotalPrice = async () => {
 
 export const getListingsByHostId = async (hostId) => {
     return await findListingsByHostId(hostId);
+}
+
+export const updateAvailability = async (getListingId, availabilitydata) => {
+    return await updateListingAvailability(getListingId, availabilitydata);
 }

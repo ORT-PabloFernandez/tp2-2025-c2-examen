@@ -4,7 +4,8 @@ import {
     getListingId, 
     getListingsByType, 
     getAllListingsWithTotalPrice, 
-    getListingsByHost
+    getListingsByHost,
+    updateListingAvailability
 } from "../controllers/listingsController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
@@ -15,6 +16,7 @@ router.get("/with-total-price", authMiddleware, getAllListingsWithTotalPrice)
 router.get("/property-type/:type", authMiddleware, getListingsByType)
 router.get("/host/:host_id", authMiddleware, getListingsByHost)
 router.get("/:id", authMiddleware, getListingId);
+router.put("/:id/availability", authMiddleware, updateListingAvailability)
 
 
 export default router;

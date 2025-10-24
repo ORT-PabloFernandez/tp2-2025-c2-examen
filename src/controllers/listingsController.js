@@ -3,7 +3,8 @@ import {
     getListingById, 
     getListingsByPropertyType,
     getListingsWithTotalPrice, 
-    getListingsByHostId
+    getListingsByHostId,
+    updateAvailability
 } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
@@ -121,6 +122,66 @@ export const getListingsByHost = async (req, res) => {
         })
     } catch (error) {
         console.log("Error obteniendo listings por host id: ", error)
+        res.status(500).json({msg: "internal server error"})
+    }
+}
+
+export const updateListingAvailability = async (req,res) => {
+    try {
+        const {id} = req.params;
+        const availabilityData = req.body
+
+        if(!id){
+            return res.status(400).json({msg: "el id del listing es requerido"})
+        }
+
+        const validFields = [
+            "availability_30",
+            "availability_60",
+            "availability_90",
+            "availability_365",
+        ];
+
+        const isValidField = validFields.some(field => availabilityData[field] !== undefined);
+
+        if (!isValidField){
+            return res.status(400).json({
+                msg:"Se requiere algun fiel de availability",
+                validFields: validFields
+            })
+        }
+
+        for (const field of validFields){
+            if( availabilityData[field] !== undefined && typeof availabilityData[field] !== 'number'){
+                return res.status(400).json({
+                    msg: `El field ${field} debe ser un numero`
+                })
+            }
+        }
+
+        console.log("Actualizando disponibilidad del listing: ", id)
+
+        const result = await updateAvailability(id, availabilityData)
+        
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: `El Listing con id ${id} no existe`
+            });
+        };
+
+        if (result.modifiedCount === 0) {
+            return res.status(200).json({
+                msg: "No se hicieron modificaciones",
+                listingId: id
+            });
+        };
+
+        res.json({
+            message: "availability modificado exitosamente",
+            listingId: id,
+        })
+    } catch (error) {
+        console.log("Error modificando listings availability: ", error)
         res.status(500).json({msg: "internal server error"})
     }
 }

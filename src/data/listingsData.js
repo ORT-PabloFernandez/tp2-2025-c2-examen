@@ -77,3 +77,32 @@ export async function findListingsByHostId(hostId){
 
         return listings
 }
+
+export async function updateListingAvailability(listingId, availabilityData){
+    const db = getDb();
+
+    const updateFields = {};
+
+    if (availabilityData.availability_30 !== undefined){
+        updateFields["availability.availability_30"] = availabilityData.availability_30;
+    }
+
+    if (availabilityData.availability_60 !== undefined){
+        updateFields["availability.availability_60"] = availabilityData.availability_60;
+    }
+
+    if (availabilityData.availability_90 !== undefined){
+        updateFields["availability.availability_90"] = availabilityData.availability_90;
+    }
+
+    if (availabilityData.availability_365 !== undefined){
+        updateFields["availability.availability_365"] = availabilityData.availability_365;
+    }
+
+    const result = await db.collection("listingsAndReviews").updateOne(
+        {_id:listingId},
+        {$set: updateFields}
+    )
+
+    return result
+}
