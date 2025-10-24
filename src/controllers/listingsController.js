@@ -1,4 +1,4 @@
-import { getListings, getListingById } from "../services/listingsService.js";
+import { getListings, getListingById, getListingsByPropertyType, getListingByTotal } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
     try {
@@ -24,3 +24,26 @@ export const getListingId = async (req, res) => {
     }
 };
 
+export const getListingsByType = async (req, res) => {
+    try {
+        const propertyType = req.params.propertyType;
+        const listings = await getListingsByPropertyType(propertyType);
+        res.json(listings);
+    } catch (error) {
+
+        console.log("Error ", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+
+
+}
+
+export const getListingsWithTotalPrice = async (req, res) => {
+  try {
+    const listings = await getListingByTotal();
+    res.json(listings);
+  } catch (error) {
+    
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
