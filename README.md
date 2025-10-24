@@ -54,6 +54,10 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 4. Realizar un pull request a mi repositorio
 
 ## Listado de endpoints implementados
+- GET /api/listings/property-type/:type - Obtiene todas las propiedades por tipo de alojamiento (requiere autenticación)
+- GET /api/listings/with-total-price - Obtiene todas las propiedades con una nueva propiedad totalPrice (requiere autenticación)
+- GET /api/listings/host/:host_id - Obtiene todas las propiedades especificas por host_id (requiere autenticación)
+- PATCH /api/listings/:id/availability - Actualiza las availability de una propiedad especifica por ID (requiere autenticación)
 
 ### Endpoints de autenticación y usuarios:
 - POST /api/users/register - Registro de nuevos usuarios
