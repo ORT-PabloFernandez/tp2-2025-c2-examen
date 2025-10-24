@@ -31,3 +31,12 @@ export function getDb() {
     }
     return db;
 }
+
+export function getDbListenings () {
+    if(!client){
+        throw new Error (
+            "Debes conectar a la base de datos primero usando connectToDatabase()"
+        );
+    }
+    return client.db("sample_airbnb");
+}
