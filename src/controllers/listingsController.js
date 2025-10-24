@@ -4,7 +4,8 @@ import {
     getListingsByPropertyType,
     getListingsWithTotalPrice, 
     getListingsByHostId,
-    updateAvailability
+    updateAvailability,
+    getTopHosts
 } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
@@ -182,6 +183,46 @@ export const updateListingAvailability = async (req,res) => {
         })
     } catch (error) {
         console.log("Error modificando listings availability: ", error)
+        res.status(500).json({msg: "internal server error"})
+    }
+}
+
+export const getTopHostsRanking = async (req, res) => {
+    try {
+        const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+
+        if (isNaN(limit) || limit < 0){
+            return res.status(400).json({
+                msg: "el limite debe ser un entero positivo"
+            })
+        }
+
+        if (limit > 100) {
+            return res.status(400).json({
+                msg:" El limite no puede ser superior a 100"
+            })
+        }
+
+        console.log("Obteniendo el ranking de los top hosts, limite: ", limit);
+
+        const topHosts = await getTopHosts(limit);
+
+
+        if (topHosts.length === 0) {
+            return res.status(404).json({
+                msg: "no se encontraron hosts",
+                count: 0,
+                results: []
+            })
+        }
+
+        res.json({
+            msg: "Top Hosts obtenidos exitosamente",
+            limit: limit,
+            results: topHosts
+        })
+    } catch (error) {
+        console.log("Error obteniendo top hosts: ", error)
         res.status(500).json({msg: "internal server error"})
     }
 }

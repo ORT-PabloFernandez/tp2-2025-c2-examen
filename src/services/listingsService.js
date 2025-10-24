@@ -5,7 +5,8 @@ import {
     findListingsByPropertyType, 
     findAllListingsForPriceCalculation, 
     findListingsByHostId,
-    updateListingAvailability
+    updateListingAvailability,
+    findTopHostsByPropertyCount
 } from "../data/listingsData.js";
 
 export const getListings = async (page, pageSize) => {
@@ -30,4 +31,8 @@ export const getListingsByHostId = async (hostId) => {
 
 export const updateAvailability = async (getListingId, availabilitydata) => {
     return await updateListingAvailability(getListingId, availabilitydata);
+}
+
+export const getTopHosts = async (limit) => {
+    return await findTopHostsByPropertyCount(limit)
 }

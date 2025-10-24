@@ -106,3 +106,33 @@ export async function updateListingAvailability(listingId, availabilityData){
 
     return result
 }
+
+
+export async function findTopHostsByPropertyCount(limit = 10){
+    const db = getDb();
+    const topHosts = await db.collection("listingsAndReviews").aggregate([
+        {
+            $group: {
+                _id: "$host.host_id",
+                hostName: { $first: "$host.host_name" },
+                propertyCount: { $sum: 1 }
+            }
+        },
+        {
+            $sort: { propertyCount: -1 }
+        },
+        {
+            $limit: limit
+        },
+        {
+            $project: {
+                _id: 0,
+                hostId: "$_id",
+                hostName: 1,
+                propertyCount: 1
+            }
+        }
+    ]).toArray();
+
+    return topHosts
+}
