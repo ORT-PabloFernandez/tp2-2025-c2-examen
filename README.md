@@ -68,6 +68,7 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 - GET /api/listings/host/:host_id - Obtener todas las propiedades asociadas al host mandado por parametro (requiere autenticación)
 - GET api/property-type/:type - Obtener todas las propiedades que matchean con el tipo de propiedad pasado por parametro (requiere autenticación)
 - PUT api/:id/availability - Modificar los datos de availability de la propiedad enviandolos por body (requiere autenticación)
+- GET api/listings/top-hosts?limit=[parametro] - obtener los top N hosts (definir N en parametro) con mas propiedades
 
 ### Endpoint base:
 - GET / - Mensaje de bienvenida de la API
