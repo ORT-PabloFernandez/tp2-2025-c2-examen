@@ -73,7 +73,6 @@ export const getListingHost = async (req, res) => {
     }
 };
 
-//revisar para que impacte en la BD
 export const changeAvailability = async (req, res) => {
     try {
     const list = await getListingById(req.params.id);

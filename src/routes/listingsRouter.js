@@ -3,8 +3,6 @@ import { getAllListings, topNHosts, getListingId, getListingPropertyType, getLis
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
-// router.get("/", authMiddleware, getAllListings);
-// router.get("/:id", authMiddleware, getListingId);
 router.get("/top-hosts", authMiddleware, topNHosts);
 router.get("/", authMiddleware, getAllListings);
 router.get("/with-total-price", authMiddleware, getListingWithTotalPrice);

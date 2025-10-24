@@ -24,7 +24,6 @@ export async function findListingById(id) {
     return listing;
 }
 
-//REVISAR
 export async function findListingByPropertyType(type) {
     const db = getDb();
         const listings = await db.collection("listingsAndReviews").find({ property_type:type }).toArray();
