@@ -11,7 +11,10 @@ let db;
 export async function connectToDatabase(){
     if(!client){
         try {
-            client = new MongoClient(uri);
+            client = new MongoClient(uri, {
+                serverSelectionTimeoutMS: 5000,
+                socketTimeoutMS: 45000
+            });
             await client.connect();
             db = client.db("sample_airbnb");
             console.log("✅ Conexión a MongoDB establecida");
