@@ -29,7 +29,7 @@ Implementar un endpoint que permita obtener todas las propiedades de un host par
 > 4. Desarrollar el endpoint para actualizar la disponibilidad de una propiedad
 Crear un endpoint PUT/PATCH que permita actualizar el estado de disponibilidad de una propiedad específica. El endpoint debe permitir cambiar campos como availability.available_30, availability.available_60, availability.available_90 y availability.available_365.
 > 5. Desarrollar el endpoint para obtener un ranking de hosts con más propiedades
-Implementar un endpoint /api/listings/top-hosts?limit=10 que retorne un ranking de los hosts que tienen más propiedades listadas. Debe incluir información del host (nombre, id) y la cantidad total de propiedades que maneja, ordenado de mayor a menor. 
+Implementar un endpoint /api/listings/top-hosts?limit=10 que retorne un ranking de los hosts que tienen más propiedades listadas. Debe incluir información del host (nombre, id) y la cantidad total de propiedades que maneja, ordenado de mayor a menor.
 
 > Características importantes a considerar:
 
@@ -67,3 +67,27 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 
 ### Endpoint base:
 - GET / - Mensaje de bienvenida de la API
+
+
+
+### Endpoints implementados por el alumno (todos requieren autenticacion):
+
+-GET /api/listings/property-type/:type?pageSize=[pageSize]&page=[page]
+
+Devuelve todas las propiedades que coinciden con el tipo especificado
+
+- GET /api/listings/with-total-price?pageSize=[pageSize]&page=[page]
+
+Devuelve todas las propiedades agregando un campo calculado totalPrice
+
+- GET /api/listings/host/:host_id?pageSize=[pageSize]&page=[page]
+
+Retorna todas las propiedades asociadas al host_id especificado.
+
+- PATCH /api/listings/:id/availability
+
+Permite actualizar parcialmente la disponibilidad de una propiedad especifica.
+
+- GET /api/top-hosts
+
+Trae una lista de los host con mas propiedades
