@@ -67,3 +67,17 @@ Si ya terminaste o son las 10:00 asegurate de seguir los siguientes pasos para l
 
 ### Endpoint base:
 - GET / - Mensaje de bienvenida de la API
+
+### Endpoints agregados por Mateo:
+- GET /api/listings/with-total-price - Te devuelve la lista completa con el precio calculado
+- GET /api/listings/top-hosts?limit=[limit] Te devuelve los top host con mas publicaciones dependiendo la cantidad que le indiques por parametro
+- GET /api/listings/host/:host_id Te devuelve todas las propiedades del host indicado segun host_id
+- GET /api/listings/property-type/:type Te devuelve todas las propiedades del tipo que le indiques
+- PUT /api/listings/availability/:id Actualiza el availability de una publicacion especifica, dandole ID y como body: {
+    "availability": {
+        "availability_30": 123,
+        "availability_60": 3456,
+        "availability_90": 555,
+        "availability_365": 555
+}
+}
