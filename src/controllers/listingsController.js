@@ -2,7 +2,8 @@ import {
     getListings, 
     getListingById, 
     getListingsByPropertyType,
-    getListingsWithTotalPrice 
+    getListingsWithTotalPrice, 
+    getListingsByHostId
 } from "../services/listingsService.js";
 
 export const getAllListings = async (req, res) => {
@@ -88,5 +89,38 @@ export const getAllListingsWithTotalPrice = async (req, res) => {
     } catch (error) {
         console.log("Error obteniendo las propiedades con precio total: ", error)
         res.status(500).json({msg: "Internal Server Error"})   
+    }
+}
+
+export const getListingsByHost = async (req, res) => {
+    try {
+        console.log("aca")
+        const {host_id} = req.params;
+
+        if(!host_id){
+            return res.status(400).json({message: "Host Id es requerido"})
+        }
+
+        console.log("Obteniendo propiedades del host: ", host_id);
+        
+        const listings = await getListingsByHostId(host_id);
+
+        if (listings.length === 0) {
+            return res.status(404).json({
+                msg: `No se encontraron propiedades para el host ${host_id}`,
+                count: 0,
+                results: []
+            })
+        }
+
+        res.json({
+            msg: "Propiedades obtenidas exitosamente",
+            count: listings.length,
+            hostId: host_id,
+            results: listings
+        })
+    } catch (error) {
+        console.log("Error obteniendo listings por host id: ", error)
+        res.status(500).json({msg: "internal server error"})
     }
 }

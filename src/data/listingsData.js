@@ -58,3 +58,22 @@ export async function findAllListingsForPriceCalculation(){
 
         return listings;
 }
+
+export async function findListingsByHostId(hostId){
+    const db = getDb();
+    const listings = await db.collection("listingsAndReviews")
+        .find()
+        .project({
+            _id: 1,
+            name: 1,
+            summary: 1,
+            property_type: 1,
+            price: 1,
+            room_type: 1,
+            "host.host_id": 1,
+            "host.host_name": 1
+        })
+        .toArray()
+
+        return listings
+}
